@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.name {
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.logout {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: 1px solid #e86b9a;
+  border-radius: 6px;
+  background: #fff;
+  color: #c04470;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.logout:hover {
+  background: #e86b9a;
+  color: #fff;
+}
+
+.logout:focus-visible {
+  outline: 2px solid #b83d70;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .name {
+    max-width: 100%;
+  }
+}

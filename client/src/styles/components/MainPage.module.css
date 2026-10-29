@@ -1,0 +1,18 @@
+.main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.error {
+  margin-top: 16px;
+  color: #c62828;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 24px 16px;
+  }
+}

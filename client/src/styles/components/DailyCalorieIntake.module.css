@@ -1,0 +1,69 @@
+.container {
+  width: 100%;
+  color: #333;
+}
+
+.title {
+  margin: 0 0 16px;
+  color: #08060d;
+  font-size: clamp(22px, 4vw, 30px);
+  text-align: center;
+}
+
+.description {
+  margin-bottom: 8px;
+  color: #6b6375;
+  text-align: center;
+}
+
+.calories {
+  margin: 0 0 28px;
+  color: #e86b9a;
+  font-size: clamp(32px, 6vw, 44px);
+  font-weight: 700;
+  text-align: center;
+}
+
+.calories span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.products {
+  padding-top: 20px;
+  border-top: 1px solid #e5e4e7;
+}
+
+.subtitle {
+  margin: 0 0 12px;
+  color: #08060d;
+  font-size: 18px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 20px;
+  max-height: 220px;
+  margin: 0;
+  padding: 0 8px 0 20px;
+  overflow-y: auto;
+  color: #6b6375;
+  font-size: 14px;
+}
+
+.list li {
+  overflow-wrap: anywhere;
+}
+
+.empty {
+  color: #6b6375;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .list {
+    grid-template-columns: minmax(0, 1fr);
+    max-height: 180px;
+  }
+}

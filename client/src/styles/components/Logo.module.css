@@ -1,0 +1,27 @@
+.logo {
+  display: inline-block;
+  flex-shrink: 0;
+  color: #e86b9a;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  transition: color 0.2s ease;
+}
+
+.logo:hover {
+  color: #d65385;
+}
+
+.logo:focus-visible {
+  outline: 2px solid #b83d70;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 25px;
+  }
+}
