@@ -32,13 +32,12 @@
 
 .input:focus {
   border-bottom-color: #e86b9a;
-  outline: none;
 }
 
 .input:focus-visible {
-  box-shadow: 0 2px 0 #e86b9a;
+  outline: 2px solid #e86b9a;
+  outline-offset: 2px;
 }
-
 .error {
   grid-column: 1 / -1;
   margin: 4px 0;

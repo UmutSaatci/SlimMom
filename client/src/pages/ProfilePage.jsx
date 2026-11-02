@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiRequest } from "../services/api";
+import {
+  getProfileAction,
+  updateProfileAction,
+} from "../actions/calculatorActions";
+import styles from "../styles/pages/ProfilePage.module.css";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -15,32 +19,32 @@ function ProfilePage() {
 
   const [calorieTarget, setCalorieTarget] = useState(null);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadProfile = async () => {
       const token = sessionStorage.getItem("token");
 
-      if (!token) {
+      if (!token || token === "undefined") {
         navigate("/login", { replace: true });
         return;
       }
 
       try {
-        const response = await apiRequest("/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
+        const response = await getProfileAction(token);
         const profile = response.data.profile;
+
+        if (!isMounted) return;
 
         setFormData({
           heightCm: String(profile.heightCm),
           age: String(profile.age),
           currentWeightKg: String(profile.currentWeightKg),
           desiredWeightKg: String(profile.desiredWeightKg),
-          bloodGroup: profile.bloodGroup ? String(profile.bloodGroup) : "",
+          bloodGroup: String(profile.bloodGroup),
         });
 
         const target =
@@ -52,15 +56,31 @@ function ProfilePage() {
 
         setCalorieTarget(Math.round(target));
       } catch (error) {
-        if (error.message === "Profile not found.") {
+        if (error.status === 401) {
+          sessionStorage.removeItem("token");
+          navigate("/login", { replace: true });
           return;
         }
 
-        setError(error.message);
+        if (error.status === 404) {
+          return;
+        }
+
+        if (isMounted) {
+          setError(error.message);
+        }
+      } finally {
+        if (isMounted) {
+          setProfileLoading(false);
+        }
       }
     };
 
     loadProfile();
+
+    return () => {
+      isMounted = false;
+    };
   }, [navigate]);
 
   const handleChange = (event) => {
@@ -75,7 +95,7 @@ function ProfilePage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
-    setLoading(true);
+    setSaving(true);
 
     try {
       const profile = {
@@ -88,18 +108,12 @@ function ProfilePage() {
 
       const token = sessionStorage.getItem("token");
 
-      if (!token) {
+      if (!token || token === "undefined") {
         navigate("/login", { replace: true });
         return;
       }
 
-      await apiRequest("/profile", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(profile),
-      });
+      await updateProfileAction(token, profile);
 
       const { heightCm, age, currentWeightKg, desiredWeightKg } = profile;
 
@@ -112,97 +126,147 @@ function ProfilePage() {
 
       setCalorieTarget(Math.round(target));
     } catch (error) {
+      if (error.status === 401) {
+        sessionStorage.removeItem("token");
+        navigate("/login", { replace: true });
+        return;
+      }
+
       setError(error.message);
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
 
+  if (profileLoading) {
+    return (
+      <p className={styles.loading} role="status">
+        Loading profile...
+      </p>
+    );
+  }
+
   return (
-    <main>
-      <h1>Complete your profile</h1>
+    <main className={styles.page}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Complete your profile</h1>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="heightCm">Height (cm)</label>
-        <input
-          id="heightCm"
-          name="heightCm"
-          type="number"
-          min="1"
-          step="any"
-          value={formData.heightCm}
-          onChange={handleChange}
-          required
-        />
+        <div className={styles.content}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <label className={styles.label} htmlFor="heightCm">
+              Height (cm)
+            </label>
+            <input
+              className={styles.input}
+              id="heightCm"
+              name="heightCm"
+              type="number"
+              min="1"
+              step="any"
+              value={formData.heightCm}
+              onChange={handleChange}
+              required
+            />
 
-        <label htmlFor="age">Age</label>
-        <input
-          id="age"
-          name="age"
-          type="number"
-          min="1"
-          step="1"
-          value={formData.age}
-          onChange={handleChange}
-          required
-        />
+            <label className={styles.label} htmlFor="age">
+              Age
+            </label>
+            <input
+              className={styles.input}
+              id="age"
+              name="age"
+              type="number"
+              min="1"
+              step="1"
+              value={formData.age}
+              onChange={handleChange}
+              required
+            />
 
-        <label htmlFor="currentWeightKg">Current weight (kg)</label>
-        <input
-          id="currentWeightKg"
-          name="currentWeightKg"
-          type="number"
-          min="1"
-          step="any"
-          value={formData.currentWeightKg}
-          onChange={handleChange}
-          required
-        />
+            <label className={styles.label} htmlFor="currentWeightKg">
+              Current weight (kg)
+            </label>
+            <input
+              className={styles.input}
+              id="currentWeightKg"
+              name="currentWeightKg"
+              type="number"
+              min="1"
+              step="any"
+              value={formData.currentWeightKg}
+              onChange={handleChange}
+              required
+            />
 
-        <label htmlFor="desiredWeightKg">Desired weight (kg)</label>
-        <input
-          id="desiredWeightKg"
-          name="desiredWeightKg"
-          type="number"
-          min="1"
-          step="any"
-          value={formData.desiredWeightKg}
-          onChange={handleChange}
-          required
-        />
+            <label className={styles.label} htmlFor="desiredWeightKg">
+              Desired weight (kg)
+            </label>
+            <input
+              className={styles.input}
+              id="desiredWeightKg"
+              name="desiredWeightKg"
+              type="number"
+              min="1"
+              step="any"
+              value={formData.desiredWeightKg}
+              onChange={handleChange}
+              required
+            />
 
-        <label htmlFor="bloodGroup">Blood group</label>
-        <select
-          id="bloodGroup"
-          name="bloodGroup"
-          value={formData.bloodGroup}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select your blood group</option>
-          <option value="1">O (I)</option>
-          <option value="2">A (II)</option>
-          <option value="3">B (III)</option>
-          <option value="4">AB (IV)</option>
-        </select>
+            <label className={styles.label} htmlFor="bloodGroup">
+              Blood group
+            </label>
+            <select
+              className={styles.select}
+              id="bloodGroup"
+              name="bloodGroup"
+              value={formData.bloodGroup}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select your blood group</option>
+              <option value="1">O (I)</option>
+              <option value="2">A (II)</option>
+              <option value="3">B (III)</option>
+              <option value="4">AB (IV)</option>
+            </select>
 
-        {error && <p role="alert">{error}</p>}
+            {error && (
+              <p className={styles.error} role="alert">
+                {error}
+              </p>
+            )}
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Saving..." : "Calculate my calories"}
-        </button>
-      </form>
+            <button
+              className={styles.submitButton}
+              type="submit"
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Calculate my calories"}
+            </button>
+          </form>
 
-      {calorieTarget !== null && (
-        <section aria-live="polite">
-          <h2>Your daily calorie target</h2>
-          <p>{calorieTarget} kcal/day</p>
+          <div className={styles.sidebar}>
+            {calorieTarget !== null && (
+              <section className={styles.result} aria-live="polite">
+                <h2 className={styles.resultTitle}>
+                  Your daily calorie target
+                </h2>
 
-          <button type="button" onClick={() => navigate("/dashboard")}>
-            Go to dashboard
-          </button>
-        </section>
-      )}
+                <p className={styles.calorieValue}>{calorieTarget} kcal/day</p>
+
+                <button
+                  className={styles.diaryButton}
+                  type="button"
+                  onClick={() => navigate("/diary")}
+                >
+                  Go to diary
+                </button>
+              </section>
+            )}
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

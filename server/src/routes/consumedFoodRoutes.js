@@ -32,6 +32,8 @@ const consumedFoodRouter = Router();
  *         description: Invalid or missing date
  *       401:
  *         description: Missing or invalid authentication token
+ *       500:
+ *         description: Failed to retrieve consumed foods
  */
 consumedFoodRouter.get("/", authMiddleware, getConsumedFoodsByDate);
 
@@ -75,6 +77,8 @@ consumedFoodRouter.get("/", authMiddleware, getConsumedFoodsByDate);
  *         description: Missing or invalid authentication token
  *       404:
  *         description: Product not found
+ *       500:
+ *         description: Failed to add consumed food
  */
 consumedFoodRouter.post("/", authMiddleware, addConsumedFood);
 
@@ -100,6 +104,10 @@ consumedFoodRouter.post("/", authMiddleware, addConsumedFood);
  *         description: Missing or invalid authentication token
  *       404:
  *         description: Consumed food entry not found
+ *       400:
+ *         description: Invalid consumed food ID
+ *       500:
+ *         description: Failed to delete consumed food
  */
 consumedFoodRouter.delete("/:id", authMiddleware, deleteConsumedFood);
 

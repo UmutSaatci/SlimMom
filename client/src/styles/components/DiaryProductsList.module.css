@@ -1,6 +1,8 @@
 .container {
+  box-sizing: border-box;
   width: 100%;
   max-width: 760px;
+  min-width: 0;
   margin: 28px auto;
   padding: 20px;
   border: 1px solid #e5e4e7;
@@ -12,14 +14,17 @@
   margin: 0 0 16px;
   color: #08060d;
   font-size: 24px;
+  overflow-wrap: anywhere;
 }
 
 .total {
+  box-sizing: border-box;
   margin: 0 0 18px;
   padding: 12px 14px;
   border-radius: 6px;
   background: #fff0f5;
   color: #6b6375;
+  overflow-wrap: anywhere;
 }
 
 .total strong {
@@ -29,6 +34,8 @@
 .list {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -38,6 +45,7 @@
   margin: 16px 0;
   color: #6b6375;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .error {
@@ -46,6 +54,19 @@
   overflow-wrap: anywhere;
 }
 
+/* Tablet */
+@media (max-width: 768px) {
+  .container {
+    margin: 24px auto;
+    padding: 18px;
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 480px) {
   .container {
     margin: 18px auto;
@@ -53,10 +74,22 @@
   }
 
   .heading {
-    font-size: 21px;
+    font-size: 20px;
   }
 
   .total {
     padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 360px) {
+  .container {
+    padding: 12px;
+  }
+
+  .heading {
+    font-size: 19px;
   }
 }

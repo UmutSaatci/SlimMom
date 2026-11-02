@@ -1,19 +1,19 @@
+import "dotenv/config";
 import dns from "node:dns";
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swagger.js";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+
 import { connectMongoDB } from "./db/connectMongoDB.js";
 import authRouter from "./routes/authRoutes.js";
-import { authMiddleware } from "./middlewares/authMiddleware.js";
 import profileRouter from "./routes/profileRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import calculatorRouter from "./routes/calculatorRoutes.js";
 import consumedFoodRouter from "./routes/consumedFoodRoutes.js";
-dotenv.config();
-
+import notFound from "./middlewares/notFound.js";
+import errorHandler from "./middlewares/errorHandler.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -36,6 +36,12 @@ app.get("/api/health", (req, res) => {
     message: "SlimMom API is running!",
   });
 });
+
+// 404 middleware
+app.use(notFound);
+
+// Central error handler
+app.use(errorHandler);
 
 const startServer = async () => {
   await connectMongoDB();

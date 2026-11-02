@@ -33,6 +33,19 @@ const userProfileSchema = new mongoose.Schema(
       required: true,
       enum: [1, 2, 3, 4],
     },
+    dailyCalories: {
+      type: Number,
+      min: 0,
+    },
+    restrictedProducts: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+      ],
+      default: [],
+    },
   },
   {
     timestamps: true,

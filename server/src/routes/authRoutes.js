@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { registerUser, loginUser } from "../controllers/authController.js";
+import {
+  registerUser,
+  loginUser,
+  getMe,
+  logoutUser,
+} from "../controllers/authController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const authRouter = Router();
@@ -105,13 +110,21 @@ authRouter.post("/login", loginUser);
  *         description: Missing or invalid authentication token
  */
 
-authRouter.get("/me", authMiddleware, (req, res) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      userId: req.user.userId,
-    },
-  });
-});
+authRouter.get("/me", authMiddleware, getMe);
 
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: Log out the authenticated user
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User logged out successfully. Existing tokens are revoked.
+ *       401:
+ *         description: Missing, invalid, or revoked authentication token
+ */
+authRouter.post("/logout", authMiddleware, logoutUser);
 export default authRouter;

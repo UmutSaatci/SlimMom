@@ -85,6 +85,8 @@ const productRouter = Router();
  *                           example: 6
  *       400:
  *         description: Invalid page or limit
+ *       500:
+ *         description: Failed to retrieve products due to a server error
  */
 productRouter.get("/", searchProducts);
 

@@ -45,6 +45,24 @@ const calculatorRouter = Router();
  *     responses:
  *       200:
  *         description: Daily calorie target and restricted foods returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     dailyCalories:
+ *                       type: integer
+ *                       example: 1850
+ *                     restrictedProducts:
+ *                       type: array
+ *                       items:
+ *                         type: object
  *       400:
  *         description: Invalid profile information
  */

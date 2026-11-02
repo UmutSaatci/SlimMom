@@ -10,7 +10,16 @@ function Navigation() {
           isActive ? `${styles.link} ${styles.active}` : styles.link
         }
       >
-        Günlük
+        Diary
+      </NavLink>
+
+      <NavLink
+        to="/calculator"
+        className={({ isActive }) =>
+          isActive ? `${styles.link} ${styles.active}` : styles.link
+        }
+      >
+        Calculator
       </NavLink>
 
       <NavLink
@@ -19,7 +28,7 @@ function Navigation() {
           isActive ? `${styles.link} ${styles.active}` : styles.link
         }
       >
-        Profil
+        Profile
       </NavLink>
     </nav>
   );

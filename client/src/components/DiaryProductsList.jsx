@@ -1,7 +1,7 @@
-import FoodDiaryItem from "./FoodDiaryItem";
-import styles from "../styles/components/FoodDiary.module.css";
+import DiaryProductsListItem from "./DiaryProductsListItem";
+import styles from "../styles/components/DiaryProductsList.module.css";
 
-function FoodDiary({
+function DiaryProductsList({
   consumedFoods,
   totalCalories,
   loading,
@@ -24,11 +24,11 @@ function FoodDiary({
           {error}
         </p>
       ) : consumedFoods.length === 0 ? (
-        <p className={styles.message}>No food entries for today.</p>
+        <p className={styles.message}>No food entries for this date.</p>
       ) : (
         <ul className={styles.list}>
           {consumedFoods.map((food) => (
-            <FoodDiaryItem
+            <DiaryProductsListItem
               key={food._id}
               food={food}
               onDelete={onDeleteFood}
@@ -41,4 +41,4 @@ function FoodDiary({
   );
 }
 
-export default FoodDiary;
+export default DiaryProductsList;

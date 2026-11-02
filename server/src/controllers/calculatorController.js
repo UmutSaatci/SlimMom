@@ -82,7 +82,7 @@ export const getMyCalories = async (req, res, next) => {
   try {
     const profile = await UserProfile.findOne({
       userId: req.user.userId,
-    }).lean();
+    });
 
     if (!profile) {
       return res.status(404).json({
@@ -92,7 +92,15 @@ export const getMyCalories = async (req, res, next) => {
     }
 
     const dailyCalories = calculateDailyCalories(profile);
+
     const restrictedProducts = await getRestrictedProducts(profile.bloodGroup);
+
+    profile.dailyCalories = dailyCalories;
+    profile.restrictedProducts = restrictedProducts.map(
+      (product) => product._id,
+    );
+
+    await profile.save();
 
     return res.status(200).json({
       status: "success",

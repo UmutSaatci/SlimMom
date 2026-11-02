@@ -1,9 +1,11 @@
 .item {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   width: 100%;
+  min-width: 0;
   padding: 14px 0;
   border-bottom: 1px solid #e5e4e7;
 }
@@ -25,11 +27,12 @@
 .meta {
   color: #6b6375;
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 .deleteButton {
   flex-shrink: 0;
-  padding: 7px 12px;
+  padding: 8px 12px;
   border: 1px solid #e86b9a;
   border-radius: 6px;
   background: #fff;
@@ -55,14 +58,43 @@
   outline-offset: 2px;
 }
 
+/* Tablet */
+@media (max-width: 768px) {
+  .item {
+    gap: 12px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 480px) {
   .item {
     align-items: flex-start;
     gap: 10px;
+    padding: 12px 0;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .meta {
+    font-size: 13px;
   }
 
   .deleteButton {
     padding: 7px 9px;
     font-size: 13px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 360px) {
+  .item {
+    gap: 6px;
+  }
+
+  .deleteButton {
+    padding: 6px 8px;
+    font-size: 12px;
   }
 }

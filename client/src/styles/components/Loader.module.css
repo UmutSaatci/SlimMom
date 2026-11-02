@@ -8,6 +8,7 @@
   justify-content: center;
   gap: 12px;
   background: rgb(255 255 255 / 80%);
+  pointer-events: auto;
 }
 
 .spinner {
@@ -32,6 +33,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .spinner {
-    animation-duration: 2s;
+    animation: none;
+    border-top-color: #e86b9a;
   }
 }

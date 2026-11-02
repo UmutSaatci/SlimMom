@@ -33,15 +33,18 @@ function DailyCaloriesForm({ onCalculate }) {
     const bloodGroup = Number(formData.bloodGroup);
 
     if (
-      !heightCm ||
-      !age ||
-      !currentWeightKg ||
-      !desiredWeightKg ||
-      !bloodGroup ||
-      heightCm <= 0 ||
-      age <= 0 ||
-      currentWeightKg <= 0 ||
-      desiredWeightKg <= 0 ||
+      !Number.isFinite(heightCm) ||
+      !Number.isFinite(age) ||
+      !Number.isFinite(currentWeightKg) ||
+      !Number.isFinite(desiredWeightKg) ||
+      heightCm < 50 ||
+      heightCm > 250 ||
+      age < 1 ||
+      age > 120 ||
+      currentWeightKg < 1 ||
+      currentWeightKg > 500 ||
+      desiredWeightKg < 1 ||
+      desiredWeightKg > 500 ||
       !Number.isInteger(age) ||
       ![1, 2, 3, 4].includes(bloodGroup)
     ) {
@@ -147,7 +150,7 @@ function DailyCaloriesForm({ onCalculate }) {
       )}
 
       <button className={styles.button} type="submit">
-        Zayıfla
+        Start losing weight
       </button>
     </form>
   );

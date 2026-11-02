@@ -96,7 +96,10 @@ export const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id.toString() },
+      {
+        userId: user._id.toString(),
+        tokenVersion: user.tokenVersion ?? 0,
+      },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || "1d" },
     );
@@ -119,6 +122,55 @@ export const loginUser = async (req, res) => {
     return res.status(500).json({
       status: "error",
       message: "Internal server error.",
+    });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("name email");
+
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found.",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      data: {
+        userId: user._id.toString(),
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    console.error("Get user error:", error.message);
+
+    return res.status(500).json({
+      status: "error",
+      message: "Failed to retrieve user information.",
+    });
+  }
+};
+
+export const logoutUser = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.user.userId, {
+      $inc: { tokenVersion: 1 },
+    });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Logout successful.",
+    });
+  } catch (error) {
+    console.error("Logout error:", error.message);
+
+    return res.status(500).json({
+      status: "error",
+      message: "Failed to logout.",
     });
   }
 };

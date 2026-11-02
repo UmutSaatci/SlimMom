@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 import Logo from "./Logo";
 import UserInfo from "./UserInfo";
 import Navigation from "./Navigation";
-import { apiRequest } from "../services/api";
+import { getCurrentUserAction } from "../actions/authActions";
 import styles from "../styles/components/Header.module.css";
 
 function Header() {
@@ -18,22 +18,22 @@ function Header() {
       const token = sessionStorage.getItem("token");
 
       if (!token || token === "undefined") {
-        setUser(null);
+        if (isMounted) {
+          setUser(null);
+        }
         return;
       }
 
       try {
-        const response = await apiRequest("/auth/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await getCurrentUserAction(token);
 
         if (isMounted) {
           setUser(response.data);
         }
-      } catch {
-        sessionStorage.removeItem("token");
+      } catch (error) {
+        if (error.status === 401) {
+          sessionStorage.removeItem("token");
+        }
 
         if (isMounted) {
           setUser(null);
@@ -53,11 +53,21 @@ function Header() {
       <div className={styles.container}>
         <Logo />
 
-        {user && (
+        {user ? (
           <div className={styles.user}>
             <Navigation />
             <UserInfo user={user} />
           </div>
+        ) : (
+          <nav className={styles.authLinks}>
+            <Link to="/login" className={styles.authLink}>
+              Log in
+            </Link>
+
+            <Link to="/register" className={styles.authLink}>
+              Registration
+            </Link>
+          </nav>
         )}
       </div>
     </header>

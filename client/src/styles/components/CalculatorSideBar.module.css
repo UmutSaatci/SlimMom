@@ -1,0 +1,109 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Daily calorie target */
+.calorieGoal,
+.restrictedProducts {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #f8f7fa;
+}
+
+.calorieGoal h2,
+.restrictedProducts h2 {
+  margin: 0 0 18px;
+  color: #08060d;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.calorieGoal p {
+  margin: 0;
+  color: #e86b9a;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Restricted products */
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 280px;
+  margin: 0;
+  padding: 0 10px 0 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.productList li {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e4e7;
+  color: #6b6375;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.productList li:last-child {
+  border-bottom: none;
+}
+
+.restrictedProducts > p {
+  margin: 0;
+  color: #6b6375;
+  font-size: 14px;
+}
+
+/* Scrollbar */
+.productList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.productList::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #d5d1d9;
+}
+
+.productList::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .sidebar {
+    gap: 20px;
+  }
+
+  .calorieGoal,
+  .restrictedProducts {
+    padding: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .sidebar {
+    gap: 16px;
+  }
+
+  .calorieGoal,
+  .restrictedProducts {
+    padding: 16px;
+  }
+
+  .calorieGoal h2,
+  .restrictedProducts h2 {
+    font-size: 18px;
+  }
+
+  .calorieGoal p {
+    font-size: 22px;
+  }
+}

@@ -1,0 +1,156 @@
+.page {
+  min-height: calc(100vh - 76px);
+  padding: 48px 20px;
+  background-color: #f6f6f6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0 0 28px;
+  color: #212121;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Form ve sonuç alanlarının yerleşimi */
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: 32px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 32px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
+}
+
+.sidebar {
+  width: 100%;
+  min-width: 0;
+}
+
+.label {
+  margin-top: 8px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input,
+.select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  background: #fff;
+  color: #212121;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.select:focus {
+  outline: 2px solid #e86b9a;
+  outline-offset: 2px;
+  border-color: #e86b9a;
+}
+
+.submitButton,
+.diaryButton {
+  min-height: 48px;
+  margin-top: 18px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #e86b9a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 00;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover,
+.diaryButton:hover {
+  background: #df5288;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 8px 0;
+  color: #d32f2f;
+  font-size: 14px;
+}
+
+.result {
+  padding: 28px 20px;
+  border-radius: 12px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
+}
+
+.resultTitle {
+  margin: 0 0 12px;
+  color: #333;
+  font-size: 20px;
+}
+
+.calorieValue {
+  margin: 0;
+  color: #df5288;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.loading {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Tablet ve mobil */
+@media (max-width: 768px) {
+  .page {
+    padding: 32px 16px;
+  }
+
+  .container {
+    max-width: 560px;
+  }
+
+  .content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .form {
+    padding: 22px 18px;
+  }
+
+  .result {
+    padding: 22px 16px;
+  }
+}

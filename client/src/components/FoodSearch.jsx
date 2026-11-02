@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { apiRequest } from "../services/api";
+import { searchProductsAction } from "../actions/productActions";
 import styles from "../styles/components/FoodSearch.module.css";
 
 function FoodSearch({ onSelectProduct }) {
@@ -23,9 +23,7 @@ function FoodSearch({ onSelectProduct }) {
     setError("");
 
     try {
-      const response = await apiRequest(
-        `/products?search=${encodeURIComponent(term)}&page=1&limit=10`,
-      );
+      const response = await searchProductsAction(term);
 
       setProducts(response.data.products);
     } catch (error) {
@@ -42,7 +40,7 @@ function FoodSearch({ onSelectProduct }) {
 
   return (
     <section className={styles.container}>
-      <h2>Search food</h2>
+      <h2 className={styles.heading}>Search food</h2>
 
       <form className={styles.form} onSubmit={handleSearch}>
         <label htmlFor="searchTerm">Product name</label>

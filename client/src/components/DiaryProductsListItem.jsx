@@ -1,6 +1,6 @@
-import styles from "../styles/components/FoodDiaryItem.module.css";
+import styles from "../styles/components/DiaryProductsListItem.module.css";
 
-function FoodDiaryItem({ food, onDelete, deleting }) {
+function DiaryProductsListItem({ food, onDelete, deleting }) {
   return (
     <li className={styles.item}>
       <span className={styles.details}>
@@ -23,4 +23,4 @@ function FoodDiaryItem({ food, onDelete, deleting }) {
   );
 }
 
-export default FoodDiaryItem;
+export default DiaryProductsListItem;

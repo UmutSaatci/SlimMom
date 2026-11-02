@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { logoutAction } from "../actions/authActions";
 import styles from "../styles/components/UserInfo.module.css";
 
 function UserInfo({ user }) {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/login", { replace: true });
+  const handleLogout = async () => {
+    try {
+      await logoutAction();
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      navigate("/login", { replace: true });
+    }
   };
 
   if (!user) {

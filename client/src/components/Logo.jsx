@@ -3,7 +3,11 @@ import styles from "../styles/components/Logo.module.css";
 
 function Logo() {
   return (
-    <Link to="/" className={styles.logo} aria-label="SlimMom ana sayfa">
+    <Link
+      to="/diary"
+      className={styles.logo}
+      aria-label="SlimMom günlük sayfası"
+    >
       SlimMom
     </Link>
   );

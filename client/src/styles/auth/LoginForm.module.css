@@ -1,0 +1,94 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 32px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.label {
+  margin-top: 8px;
+  color: #444444;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  border-color: #fc842d;
+}
+
+.error {
+  margin: 8px 0;
+  color: #c62828;
+  font-size: 14px;
+}
+
+.submitButton {
+  min-height: 48px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 30px;
+  background-color: #e86b9a;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #e86b9a;
+}
+
+.submitButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.registerText {
+  margin-top: 20px;
+  color: #666666;
+  font-size: 14px;
+  text-align: center;
+}
+
+.registerLink {
+  color: #fc842d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.registerLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .form {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 24px 18px;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}

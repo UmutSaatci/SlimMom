@@ -3,7 +3,7 @@ import DailyCaloriesForm from "../components/DailyCaloriesForm";
 import DailyCalorieIntake from "../components/DailyCalorieIntake";
 import Modal from "../components/Modal";
 import Loader from "../components/Loader";
-import { apiRequest } from "../services/api";
+import { calculateCaloriesAction } from "../actions/calculatorActions";
 import styles from "../styles/components/MainPage.module.css";
 
 function MainPage() {
@@ -13,13 +13,11 @@ function MainPage() {
 
   const handleCalculate = async (profileData) => {
     setError("");
+    setCalorieData(null);
     setLoading(true);
 
     try {
-      const response = await apiRequest("/calculator", {
-        method: "POST",
-        body: JSON.stringify(profileData),
-      });
+      const response = await calculateCaloriesAction(profileData);
 
       setCalorieData(response.data);
     } catch (error) {

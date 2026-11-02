@@ -15,10 +15,41 @@ const profileRouter = Router();
  *     responses:
  *       200:
  *         description: Profile retrieved successfully
- *       404:
- *         description: Profile not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     profile:
+ *                       type: object
+ *                       properties:
+ *                         heightCm:
+ *                           type: number
+ *                           example: 165
+ *                         age:
+ *                           type: integer
+ *                           example: 30
+ *                         currentWeightKg:
+ *                           type: number
+ *                           example: 70
+ *                         desiredWeightKg:
+ *                           type: number
+ *                           example: 60
+ *                         bloodGroup:
+ *                           type: integer
+ *                           example: 1
  *       401:
  *         description: Missing or invalid authentication token
+ *       404:
+ *         description: Profile not found
+ *       500:
+ *         description: Failed to retrieve profile
  */
 profileRouter.get("/", authMiddleware, getProfile);
 
@@ -66,6 +97,8 @@ profileRouter.get("/", authMiddleware, getProfile);
  *         description: Invalid profile information
  *       401:
  *         description: Missing or invalid authentication token
+ *       500:
+ *         description: Failed to save profile
  */
 profileRouter.put("/", authMiddleware, saveProfile);
 

@@ -1,6 +1,32 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { getCurrentUserAction } from "../actions/authActions";
 import styles from "../styles/components/DailyCalorieIntake.module.css";
-
 function DailyCalorieIntake({ dailyCalories, restrictedProducts = [] }) {
+  const navigate = useNavigate();
+  const [checkingAuth, setCheckingAuth] = useState(false);
+
+  const handleStartLosingWeight = async () => {
+    const token = sessionStorage.getItem("token");
+
+    if (!token || token === "undefined") {
+      navigate("/login");
+      return;
+    }
+
+    setCheckingAuth(true);
+
+    try {
+      await getCurrentUserAction(token);
+
+      navigate("/diary");
+    } catch (error) {
+      sessionStorage.removeItem("token");
+      navigate("/login");
+    } finally {
+      setCheckingAuth(false);
+    }
+  };
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Your daily calorie intake</h2>
@@ -22,8 +48,7 @@ function DailyCalorieIntake({ dailyCalories, restrictedProducts = [] }) {
               const productName =
                 typeof product === "string"
                   ? product
-                  : product.title || product.name || product._id;
-
+                  : product.title || product.name || "Unknown product";
               return (
                 <li key={product._id || product.id || index}>{productName}</li>
               );
@@ -32,6 +57,15 @@ function DailyCalorieIntake({ dailyCalories, restrictedProducts = [] }) {
         ) : (
           <p className={styles.empty}>No restricted products were found.</p>
         )}
+
+        <button
+          type="button"
+          className={styles.startButton}
+          onClick={handleStartLosingWeight}
+          disabled={checkingAuth}
+        >
+          {checkingAuth ? "Checking..." : "Start losing weight"}
+        </button>
       </div>
     </section>
   );

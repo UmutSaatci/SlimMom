@@ -1,0 +1,47 @@
+.container {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.error,
+.success {
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  color: #c62828;
+  background: #fff0f0;
+}
+
+.success {
+  color: #247a3b;
+  background: #edf8ef;
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    gap: 10px;
+  }
+
+  .error,
+  .success {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}
