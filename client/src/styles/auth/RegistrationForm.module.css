@@ -29,7 +29,7 @@
 }
 
 .input:focus {
-  border-color: #fc842d;
+  border-color: #e86b9a;
 }
 
 .error {
@@ -43,7 +43,7 @@
   margin-top: 16px;
   border: none;
   border-radius: 30px;
-  background-color: #fc842d;
+  background-color: #e86b9a;
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
@@ -52,7 +52,7 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background-color: #e87520;
+  background-color: #e94d89;
 }
 
 .submitButton:disabled {
@@ -68,7 +68,7 @@
 }
 
 .loginLink {
-  color: #fc842d;
+  color: #e94d89;
   font-weight: 600;
   text-decoration: none;
 }

@@ -52,7 +52,7 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background-color: #e86b9a;
+  background-color: #e94d89;
 }
 
 .submitButton:disabled {
@@ -68,7 +68,7 @@
 }
 
 .registerLink {
-  color: #fc842d;
+  color: #e94d89;
   font-weight: 600;
   text-decoration: none;
 }

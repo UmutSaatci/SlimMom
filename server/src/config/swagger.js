@@ -14,6 +14,10 @@ const options = {
         url: "http://localhost:3000",
         description: "Local development server",
       },
+      {
+        url: "https://slimmom-0tn4.onrender.com",
+        description: "Production server",
+      },
     ],
     components: {
       securitySchemes: {
