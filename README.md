@@ -3,9 +3,9 @@
 ## Live Demo
 
 - Frontend: https://slimmom-client.onrender.com/
-- Backend API: https://slimmom-0tn4.onrender.com/
-- API Documentation: https://slimmom-0tn4.onrender.com/api-docs
-
+- Backend Health Check: https://slimmom-0tn4.onrender.com/api/health
+- API Documentation (Swagger): https://slimmom-0tn4.onrender.com/api-docs
+  
 SlimMom is a full-stack calorie tracking application that helps users calculate their daily calorie needs, track their food consumption, and monitor their daily nutrition goals.
 
 ## Features
